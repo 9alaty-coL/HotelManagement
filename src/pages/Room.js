@@ -1,7 +1,7 @@
 import NavBar from "../components/navbar/NavBar"
 
-const Bill = () => {
+const Room = () => {
     return <NavBar />
 }
 
-export default Bill
+export default Room

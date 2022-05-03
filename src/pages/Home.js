@@ -1,6 +1,8 @@
+import classes from "./css/Home.module.css"
+import NavBar from "../components/navbar/NavBar"
 
 const Home = () => {
-    return <h1>HOME</h1>
+    return <NavBar />
 }
 
 export default Home

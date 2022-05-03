@@ -1,6 +1,7 @@
+import NavBar from "../components/navbar/NavBar"
 
 const BookRoom = () => {
-    return <h1>BOOK ROOM</h1>
+    return <NavBar />
 }
 
 export default BookRoom

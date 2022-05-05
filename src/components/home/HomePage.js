@@ -6,7 +6,6 @@ const HomePage = () => {
         <Slider />
 
         <div className={classes.info}>
-            <h1>Hotel Management</h1>
         </div>
     </div>
 }

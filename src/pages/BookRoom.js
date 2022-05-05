@@ -1,7 +1,14 @@
+import classes from "./css/BookRoom.module.css"
 import NavBar from "../components/navbar/NavBar"
+import BookroomPage from "../components/book-room/BookroomPage"
 
 const BookRoom = () => {
-    return <NavBar />
+    return <div className={classes.main}>
+    <NavBar />
+    <div className={classes.page}>
+      <BookroomPage />
+    </div>
+  </div>
 }
 
 export default BookRoom

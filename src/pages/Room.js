@@ -1,12 +1,15 @@
+import classes from "./css/Room.module.css"
 import NavBar from "../components/navbar/NavBar";
 import RoomPage from "../components/room/RoomPage";
 
 const Room = () => {
   return (
-    <>
+    <div className={classes.main}>
       <NavBar />
-      <RoomPage />
-    </>
+      <div className={classes.page}>
+        <RoomPage />
+      </div>
+    </div>
   );
 };
 

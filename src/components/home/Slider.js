@@ -11,8 +11,8 @@ const Slider = () => {
       <Carousel
         width={"100%"}
         showThumbs={false}
-        showIndicators={false}
-        showStatus={false}
+        // showIndicators={false}
+        // showStatus={false}
         // showArrows={false}
         autoPlay={true}
         interval={2500}

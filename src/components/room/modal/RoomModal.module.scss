@@ -35,8 +35,6 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        border-bottom: 1px darkblue solid;
-        padding-bottom: 20px;
         .state{
             width: 70%;
             display: flex;
@@ -58,25 +56,5 @@
             }
         }
     }
-    .btnGroup{
-        &>button{
-            margin-top: 1rem;
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            background-color: rgb(76, 188, 76);
-            padding: 10px;
-            border-radius: 15px;
-            border:none;
-            cursor: pointer;
-            &:hover{
-                background-color: rgb(105, 206, 105);
-            }
-        }
-        &>button:last-child{
-            background-color: rgb(153, 149, 149);
-            &:hover{
-                background-color: rgb(182, 178, 178);
-            }
-        }
-    }
+
 }

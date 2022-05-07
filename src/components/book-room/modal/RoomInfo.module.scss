@@ -1,0 +1,24 @@
+.main{
+    display: flex;
+    flex:1;
+    margin-left: 15px;
+    padding-right: 30px;
+    flex-direction: column;
+    align-items: center;
+    // border-right: 1px solid black;
+    &>span{
+        font-size: 1.5rem;
+        margin-top: 15px;
+    }
+    .rooms{
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        &>span{
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+    }
+}

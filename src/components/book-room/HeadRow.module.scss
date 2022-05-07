@@ -1,0 +1,22 @@
+.main{
+    display: grid;
+    grid-template-columns: 5vw 20vw 20vw 15vw 5vw 5vw;
+
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    width: 70vw;
+    height: auto;
+
+    border: 1px solid black;
+
+    border-radius: 15px 15px 0px 0px;
+
+    gap: 1vh;
+    padding: 0.3vw 3vw 0.3vw 1vw;
+    margin-top: 3vh;
+    margin-bottom: 1vh;
+
+    background-color: #60FFDF;
+}

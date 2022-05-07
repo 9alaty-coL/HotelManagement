@@ -1,9 +1,10 @@
 import classes from "./RoomModal.module.scss";
 import CustomerRow from "./CustomerRow";
-import { faUser, faClock, faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faClock, faCalendar, faUsers } from "@fortawesome/free-solid-svg-icons";
 import OptionSelect from "../../UI/OptionSelect";
 import { useState } from "react";
 import Modal from "../../UI/Modal";
+import ButtonGroup from "../../UI/modal-util/ButtonGroup";
 
 const STATE_OPTIONS = [
   {
@@ -42,6 +43,7 @@ const RoomModal = (props) => {
             <CustomerRow icon={faUser} content={"TranTanLoc"} />
             <CustomerRow icon={faCalendar} content={"12/04/2022"} />
             <CustomerRow icon={faClock} content={"3 ngày"} />
+            <CustomerRow icon={faUsers} content={"2 người"} />
           </div>
           <div className={classes.room_state}>
             <span>ĐÃ ĐẶT</span>
@@ -65,10 +67,7 @@ const RoomModal = (props) => {
             />
           </div>
         </div>
-        <div className={classes.btnGroup}>
-          <button>Cập nhật</button>
-          <button>Hủy</button>
-        </div>
+        <ButtonGroup ok="Cập nhật" />
       </div>
     </Modal>
   );

@@ -7,6 +7,13 @@ const OptionSelect = (props) => {
   const { option, setOption } = props;
   const [choose, setChoose] = useState(false);
   const selectRef = useRef();
+  if (props.options === undefined || props.options.length === 0){
+    return <div className={classes.contain}>
+      <div className={classes.select} style={{color:"gray"}}>
+        Empty
+      </div>
+    </div>
+  }
   return (
     <div
       className={classes.contain}

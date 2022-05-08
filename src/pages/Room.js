@@ -1,4 +1,4 @@
-import classes from "./css/Room.module.css"
+import classes from "./css/Room.module.scss"
 import NavBar from "../components/navbar/NavBar";
 import RoomPage from "../components/room/RoomPage";
 

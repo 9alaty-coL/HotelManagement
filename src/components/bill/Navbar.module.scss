@@ -1,0 +1,39 @@
+.main {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70vw;
+    margin-top: 3vh;
+
+    &>input{
+        padding: 5px;
+        float: left;
+
+        font-size: 17px;
+
+        width:40%;
+    }
+
+    &>button{
+        padding: 10px;
+        float: right;
+        border: none;
+
+        display: block;
+        color: white;
+
+        background-color: rgb(76, 188, 76);
+        cursor: pointer;
+        text-align: center;
+        
+        text-decoration: none;
+        font-size: 20px;
+        border-radius: 10px;
+
+        width:18%;
+        &:hover{
+            background-color: rgb(105, 206, 105);
+        }
+    }
+}

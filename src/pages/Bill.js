@@ -1,4 +1,4 @@
-import classes from "./css/Bill.module.css";
+import classes from "./css/Bill.module.scss";
 import NavBar from "../components/navbar/NavBar";
 import BillPage from "../components/bill/BillPage"
 

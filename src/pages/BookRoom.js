@@ -1,4 +1,4 @@
-import classes from "./css/BookRoom.module.css"
+import classes from "./css/BookRoom.module.scss"
 import NavBar from "../components/navbar/NavBar"
 import BookroomPage from "../components/book-room/BookroomPage"
 

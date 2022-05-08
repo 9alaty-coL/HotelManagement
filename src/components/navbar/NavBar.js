@@ -24,6 +24,16 @@ const OPTION_LIST = [
     link: "https://static.thenounproject.com/png/139414-200.png",
   },
   {
+    name: "Danh mục phòng",
+    path: "/room-list",
+    link: "https://mofficesoft.vn/wp-content/uploads/2020/04/menu-calendar-icon-3.png",
+  },
+  {
+    name: "Danh mục dịch vụ",
+    path: "/service-list",
+    link: "https://mofficesoft.vn/wp-content/uploads/2020/04/menu-calendar-icon-3.png",
+  },
+  {
     name: "Đăng xuất",
     path: "/logout",
     link: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_logOut-ltr.svg/240px-OOjs_UI_icon_logOut-ltr.svg.png",

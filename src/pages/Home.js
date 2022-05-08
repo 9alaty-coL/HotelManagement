@@ -1,4 +1,4 @@
-import classes from "./css/Home.module.css";
+import classes from "./css/Home.module.scss";
 import NavBar from "../components/navbar/NavBar";
 import HomePage from "../components/home/HomePage";
 

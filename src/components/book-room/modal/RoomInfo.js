@@ -27,7 +27,7 @@ const RoomInfo = () => {
       <span>Phòng yêu cầu</span>
       <CustomerInfoRow icon={faCalendar} placeholder="Ngày ở" type={"date"} />
       <CustomerInfoRow icon={faClock} placeholder="Số ngày ở" type={"number"} />
-      <CustomerInfoRow icon={faSortNumericDesc} placeholder="Số người" />
+      <CustomerInfoRow icon={faSortNumericDesc} placeholder="Số người" type={"number"}/>
       <div className={classes.rooms}>
         <span>Phòng phù hợp</span>
         <OptionSelect options={DUMMY_ROOMS} option={choosedRoom} setOption={setChoosedRoom}/>

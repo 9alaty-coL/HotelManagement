@@ -1,4 +1,4 @@
-import classes from "./RoomPage.module.css"
+import classes from "./RoomPage.module.scss"
 
 const RoomPage = () => {
     return <div className={classes.main}>

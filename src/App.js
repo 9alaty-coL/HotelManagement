@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import BookRoom from "./pages/BookRoom";
@@ -7,18 +7,27 @@ import Bill from "./pages/Bill";
 import Room from "./pages/Room"
 import RoomList from "./pages/RoomList";
 import ServiceList from "./pages/ServiceList";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
+import _AuthContext from "./context/AuthContext"
+import { useContext } from "react";
 
 function App() {
+  const AuthContext = useContext(_AuthContext)
   return (
+
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/room" element={<Room />}>
+      {AuthContext.isLoggedIn && <Route path="/" element={<Home />} />}
+      {AuthContext.isLoggedIn && <Route path="/room" element={<Room />}>
         <Route path=":RoomId" element={<Room />} />
-      </Route>
-      <Route path="/book-room" element={<BookRoom />} />
-      <Route path="/bills" element={<Bill />} />
-      <Route path="/room-list" element={<RoomList />} />
-      <Route path="/service-list" element={<ServiceList />} />
+      </Route>}
+      {AuthContext.isLoggedIn && <Route path="/book-room" element={<BookRoom />} />}
+      {AuthContext.isLoggedIn && <Route path="/bills" element={<Bill />} />}
+      {AuthContext.isLoggedIn && <Route path="/room-list" element={<RoomList />} />}
+      {AuthContext.isLoggedIn && <Route path="/service-list" element={<ServiceList />} />}
+      {AuthContext.isLoggedIn && <Route path="/logout" element={<Logout />} />}
+      {!AuthContext.isLoggedIn && <Route path="/auth" element={<Login />} />}
+      <Route path="*" element={<Navigate replace to={`${AuthContext.isLoggedIn ? '/' : 'auth'}`} />} />
     </Routes>
   );
 }

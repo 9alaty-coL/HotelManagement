@@ -1,0 +1,72 @@
+.main {
+    margin: 20px 0;
+    padding: 20px 3vw;
+    background-color: rgb(239, 244, 247);
+    box-shadow: 6px 6px 3px 3px #dfdede;
+    &>h4 {
+        color: #0d6efd;
+        padding: 10px;
+    }
+    .Box {
+        display: flex;
+        flex-wrap: wrap;
+
+        .BoxElement {
+            margin: 10px;
+            width: 280px;
+            color: #fff;
+            font-weight: 500;
+           
+            .Top {
+                height: 30px;
+                display: flex;
+                justify-content:space-between;
+                padding: 6px 8px ;
+                text-align: center;
+                font-size: 16px;
+                border-radius:16px 16px 0 0;
+                background-color: #5bc788;
+            }
+
+            .Middle {
+                height: 110px;
+                line-height:100px;
+                display: flex;
+                justify-content:center;
+                text-align: center;
+                font-size: 21.2px;
+                text-align: center;
+                background-color: #5bc788;
+
+                & span {
+                    font-size:60px;
+                }
+            }
+
+            .Bottom {
+                height: 30px;
+                display: flex;
+                justify-content:space-between;
+                padding: 3px 8px ;
+                text-align: center;
+                font-size: 13px;
+                background-color: #cec6c6;
+                border-radius: 0 0 16px 16px ;
+                color: black;
+                opacity: 0.7;
+            }
+
+            .Booked {
+                background-color: orange;
+            }
+
+            .Damaged {
+                background-color: rgba(229, 55, 55, 0.858);
+            }
+        }
+
+       
+    }
+
+    
+}

@@ -6,53 +6,57 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Status = [
    {
       id: 0, 
-      data: "tất cả"
+      data: "Tất cả"
    },
    {
       id: 1, 
-      data: "phòng trống"
+      data: "Phòng trống"
    },
    {
       id: 2, 
-      data: "phòng đã đặt"
+      data: "Phòng đã đặt"
+   },
+   {
+      id: 3, 
+      data: "Đã nhận phòng"
+   },
+   {
+      id: 4, 
+      data: "Đang sửa chữa"
    }
 ];
 
 const Types = [
    {
       id: 0, 
-      data: "tất cả"
+      data: "Tất cả"
    },
    {
       id: 1, 
-      data: "phòng đơn"
+      data: "Phòng đơn"
    },
    {
       id: 2, 
-      data: "phòng đôi"
+      data: "Phòng đôi"
    },
    {
       id: 3, 
-      data: "villa"
+      data: "Villa"
    }
 ]
 const actualState = [
    {
       id: 0, 
-      data: "tất cả"
+      data: "Tất cả"
    },
    {
       id: 1, 
-      data: "chưa dọn dẹp"
+      data: "Chưa dọn dẹp"
    },
    {
       id: 2, 
-      data: "đã dọn dẹp"
+      data: "Đã dọn dẹp"
    },
-   {
-      id: 3, 
-      data: "đang sữa chữa"
-   }
 ]
 
 
@@ -63,6 +67,20 @@ const RoomType = () => {
    const [stateSelected, setStateSelected] = useState(actualState[0].id);
   
    return (<div className={classes.main}>
+         <div className={classes.RoomType_element}>
+            <h5>Loại phòng</h5>
+            {Types.map((type) => {
+               return (<div key= {type.id}>
+                        <input 
+                           type="radio" 
+                           checked={type.id === typeSelected}
+                           onChange={() => setTypeSelected(type.id)}
+                        />
+                           {type.data}
+                     </div>)
+            })}
+        </div>
+        
         <div className={classes.RoomType_element}>
             <h5>Trạng thái</h5>
             {Status.map((status) => {
@@ -73,20 +91,6 @@ const RoomType = () => {
                            onChange={() => setStatusSelected(status.id)}
                         />
                            {status.data}
-                     </div>)
-            })}
-        </div>
-
-        <div className={classes.RoomType_element}>
-            <h5>Loại phòng</h5>
-            {Types.map((type) => {
-               return (<div key= {type.id}>
-                        <input 
-                           type="radio" 
-                           checked={type.id === typeSelected}
-                           onChange={() => setTypeSelected(type.id)}
-                        />
-                           {type.data}
                      </div>)
             })}
         </div>

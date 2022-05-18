@@ -15,7 +15,7 @@
     top: 40%;
     transform: translate(-50%, -50%);
     // transition: 1s ease;
-    animation: ease-to-top ease 0.4s;
+    animation: ease-to-top ease 0.4s forwards;
     border: 1px solid #666;
     box-shadow: #333 0px 0px 5px;
     background-color: #eee;
@@ -50,6 +50,6 @@
       opacity: 0.5;
     }
     100%{
-        top: 40%;
+        top: 45%;
     }
   }

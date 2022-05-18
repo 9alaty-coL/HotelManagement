@@ -2,6 +2,8 @@ import classes from "./RoomBox.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {Row, Col } from 'reactstrap';
 import * as Icons from "@fortawesome/free-solid-svg-icons";
+import RoomModal from './modal/RoomModal'
+import { useState } from "react";
 
 const rooms = [
     {
@@ -134,7 +136,9 @@ const types = [
 
 
 const RoomBox = () => {
+    const [showModal, setShowModal] = useState(false)
     return <div className={classes.main}>
+    {showModal && <RoomModal onBackdropClick={()=>setShowModal(prev=>!prev)}/>}
         {types.map((type) =>{
             const roomsOfType = rooms.filter((room) => {
                 return room.type === type.data;
@@ -174,7 +178,7 @@ const RoomBox = () => {
                             }
 
                             return (
-                                <Col className={classes.BoxElement} xs={3} >
+                                <Col className={classes.BoxElement} xs={3} onClick={()=>setShowModal(prev=>!prev)}>
                                     <div className={Top}>
                                         <div className={classes.leftElement}>
                                             {room.id}

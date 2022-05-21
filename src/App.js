@@ -8,6 +8,7 @@ import Room from "./pages/Room"
 import RoomList from "./pages/RoomList";
 import ServiceList from "./pages/ServiceList";
 import Login from "./pages/Login";
+import Messenger from "./pages/Messenger";
 import Logout from "./pages/Logout";
 import _AuthContext from "./context/AuthContext"
 import { useContext } from "react";
@@ -25,6 +26,7 @@ function App() {
       {AuthContext.isLoggedIn && <Route path="/bills" element={<Bill />} />}
       {AuthContext.isLoggedIn && <Route path="/room-list" element={<RoomList />} />}
       {AuthContext.isLoggedIn && <Route path="/service-list" element={<ServiceList />} />}
+      {AuthContext.isLoggedIn && <Route path="/messenger" element={<Messenger />} />}
       {AuthContext.isLoggedIn && <Route path="/logout" element={<Logout />} />}
       {!AuthContext.isLoggedIn && <Route path="/auth" element={<Login />} />}
       <Route path="*" element={<Navigate replace to={`${AuthContext.isLoggedIn ? '/' : 'auth'}`} />} />

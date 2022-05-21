@@ -35,6 +35,11 @@ const OPTION_LIST = [
     link: "https://mofficesoft.vn/wp-content/uploads/2020/04/menu-calendar-icon-3.png",
   },
   {
+    name: "Nhắn tin",
+    path: "/messenger",
+    link: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Font_Awesome_5_brands_facebook-messenger.svg/1792px-Font_Awesome_5_brands_facebook-messenger.svg.png",
+  },
+  {
     name: "Đăng xuất",
     path: "/logout",
     link: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_logOut-ltr.svg/240px-OOjs_UI_icon_logOut-ltr.svg.png",

@@ -1,6 +1,7 @@
 import classes from "./NavBar.module.scss";
 import { useState } from "react";
 import Option from "./Option";
+import LogoutModal from "../home/LogoutModal";
 
 const OPTION_LIST = [
   {
@@ -42,6 +43,7 @@ const OPTION_LIST = [
 
 const NavBar = () => {
   const [showName, setShowName] = useState(false);
+  const [isLogout, setIsLogout] = useState(false)
   const options = OPTION_LIST.map((value) => (
     <Option
       showName={showName}
@@ -49,6 +51,7 @@ const NavBar = () => {
       name={value.name}
       link={value.path}
       imgSrc={value.link}
+      setIsLogout={setIsLogout}
     />
   ));
   return (
@@ -60,6 +63,7 @@ const NavBar = () => {
           <div className={classes.line} />
       </div>
       {options}
+      {isLogout && <LogoutModal onBackdropClick={()=>setIsLogout(false)}/>}
     </div>
   );
 };

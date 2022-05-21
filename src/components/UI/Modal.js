@@ -8,8 +8,8 @@ const Backdrop = (props) => {
 const Overlay = (props) => {
   return (
     <div className={classes.overlay}>
-      <div className={classes.close1} onClick={props.onCloseClick} />
-      <div className={classes.close2} onClick={props.onCloseClick} />
+      {!props.noCloseButton && <div className={classes.close1} onClick={props.onCloseClick} />}
+      {!props.noCloseButton && <div className={classes.close2} onClick={props.onCloseClick} />}
       {props.children}
     </div>
   );
@@ -24,7 +24,7 @@ const Modal = (props) => {
         <Backdrop onClick={props.onBackdropClick} />,
         portal
       )}
-      {ReactDOM.createPortal(<Overlay onCloseClick={props.onCloseClick}>{props.children}</Overlay>, portal)}
+      {ReactDOM.createPortal(<Overlay noCloseButton={props.noCloseButton} onCloseClick={props.onCloseClick}>{props.children}</Overlay>, portal)}
     </>
   );
 };

@@ -1,0 +1,40 @@
+.main{
+    display: flex;
+    padding: 15px 20px;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    &:hover{
+        background-color: #ccc;
+    }
+    .avatar{
+        position: relative;
+        &>img{
+            width: 55px;
+        }
+        &::after{
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgb(35, 231, 71);
+            left: 38px;
+            top: 40px;
+        }
+    }
+    .main__info{
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+        .name{
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+        }
+        .role{
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #888;
+        }
+    }
+}

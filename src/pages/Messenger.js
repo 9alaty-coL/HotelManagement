@@ -1,14 +1,14 @@
 import classes from './css/Messenger.module.scss'
 import NavBar from "../components/navbar/NavBar"
 
-import CurrentChat from '../components/messenger/CurrentChat'
+import Conversation from '../components/messenger/Conversation'
 import People from '../components/messenger/People'
 
 const Messenger = props => {
     return <div className={classes.main}>
         <NavBar />
         <div className={classes.page}>
-            <CurrentChat />
+            <Conversation />
             <People />
         </div>
     </div>

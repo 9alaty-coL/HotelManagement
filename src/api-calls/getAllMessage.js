@@ -5,7 +5,7 @@ const getAllMessage = async (token) => {
     try {
         res = await axios({
             method: 'post',
-            url: 'http://localhost:8000/mess',
+            url: 'https://api-hotman.herokuapp.com/mess',
             data: {
                 token: token,
             }

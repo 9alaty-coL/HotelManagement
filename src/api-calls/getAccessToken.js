@@ -6,8 +6,8 @@ const getAccessToken = async (data) => {
     try {
         res = await axios({
             method: 'post',
-            // url: 'https://api-hotman.herokuapp.com/auth',
-            url: 'http://localhost:8000/auth',
+            url: 'https://api-hotman.herokuapp.com/auth',
+            // url: 'http://localhost:8000/auth',
             data: {
                 username: data.username,
                 password: data.password,

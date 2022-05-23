@@ -2,8 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faArrowRight, faArrow} from "@fortawesome/free-solid-svg-icons"
 import classes from './Conversation.module.scss'
 import Message from './Message'
-import {useRef, useEffect} from 'react'
-
+import {useRef, useEffect, useContext} from 'react'
+import AuthContext from '../../context/AuthContext'
+import getAllMessage from '../../api-calls/getAllMessage'
+import { useQuery } from 'react-query'
+import { CircularProgress } from "@mui/material";
 
 const DUMMY_MESSAGE = [
     {
@@ -19,48 +22,7 @@ const DUMMY_MESSAGE = [
         createAt: '2021-04-25T14:20:28.262+00:00',
 
     },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
 
-    },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
-
-    },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
-
-    },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
-
-    },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
-
-    },
-    {
-        senderId: 'guest',
-        recieverId: 'other',
-        message: 'Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello',
-        createAt: '2021-04-25T14:20:28.262+00:00',
-
-    },
 ]
 
 const reciever = {
@@ -78,17 +40,32 @@ const user = {
 }
 
 
-
-const Conversation = () => {
+const Conversation = props => {
+    const authContext = useContext(AuthContext)
     const formRef = useRef()
     const textareaRef = useRef()
     const messagesRef = useRef()
-    const messages = DUMMY_MESSAGE.map(value => {
-        return <Message ref={messagesRef} message={value.message} send={value.senderId == user._id} createAt={value.createAt} />
-    })
+    const messagesData = useQuery('getMessages',getAllMessage.bind(null, authContext.token))
+    let messages
+    if (messagesData.isLoading){
+        messages = <CircularProgress color="primary" size="80px" />
+    }
+    else if (messagesData.isError){
+        messages = <span style={{color: "red"}}>Error: {messagesData.error}</span>
+    }
+    else{
+        messages = messagesData.data.map(value => {
+            return <Message ref={messagesRef} key={value._id} message={value.message} send={value.senderId == user._id} createdAt={value.createdAt} />
+        })
+    }
+    // const messages = DUMMY_MESSAGE.map(value => {
+    //     return <Message ref={messagesRef} message={value.message} send={value.senderId == user._id} createAt={value.createAt} />
+    // })
     useEffect(()=>{
-        messagesRef.current.scrollIntoView({behavior: 'smooth'})
-    }, [DUMMY_MESSAGE])
+        if (messagesRef){
+            messagesRef?.current?.scrollIntoView({behavior: 'smooth'})
+        }
+    }, [messages])
     const submitHandler = e => {
         e.preventDefault()
         textareaRef.current.value=''

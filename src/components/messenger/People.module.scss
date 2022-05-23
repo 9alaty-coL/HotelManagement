@@ -12,6 +12,9 @@
         border-bottom: #888 solid 1px;
     }
     .people{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
         width: 100%;
         overflow-y: scroll;
         max-height: 83vh;

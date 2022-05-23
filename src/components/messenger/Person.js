@@ -2,7 +2,7 @@ import classes from './Person.module.scss'
 
 
 const Person = props => {
-    return <div className={classes.main}>
+    return <div className={classes.main} onClick={props.onClick}>
         <div className={classes.avatar}>
         <img src={props.avatar} />
 

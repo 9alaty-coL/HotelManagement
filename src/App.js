@@ -26,7 +26,9 @@ function App() {
       {AuthContext.isLoggedIn && <Route path="/bills" element={<Bill />} />}
       {AuthContext.isLoggedIn && <Route path="/room-list" element={<RoomList />} />}
       {AuthContext.isLoggedIn && <Route path="/service-list" element={<ServiceList />} />}
-      {AuthContext.isLoggedIn && <Route path="/messenger" element={<Messenger />} />}
+      {AuthContext.isLoggedIn && <Route path="/messenger" element={<Messenger />} >
+        <Route path=":recieverId" element={<Messenger />} />
+      </Route>}
       {AuthContext.isLoggedIn && <Route path="/logout" element={<Logout />} />}
       {!AuthContext.isLoggedIn && <Route path="/auth" element={<Login />} />}
       <Route path="*" element={<Navigate replace to={`${AuthContext.isLoggedIn ? '/' : 'auth'}`} />} />

@@ -5,7 +5,8 @@ const getAllPartners = async (token) => {
     try {
         res = await axios({
             method: 'get',
-            url: 'https://api-hotman.herokuapp.com/mess/partners',
+            // url: 'https://api-hotman.herokuapp.com/api/mess/partners',
+            url: 'http://localhost:8000/api/mess/partners',
             params: {
                 token: token,
             }

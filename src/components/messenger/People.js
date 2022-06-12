@@ -1,7 +1,7 @@
 import classes from './People.module.scss'
 import Person from './Person'
 import { useQuery } from 'react-query'
-import getAllPartners from '../../api-calls/getAllPartners'
+import getAllPartners from '../../api-calls/message/getAllPartners'
 import { CircularProgress } from "@mui/material";
 import { useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
@@ -19,12 +19,14 @@ const People = props => {
     else{
         
         people = partners.data.map(value => {
-           return <Person onClick={props.setPartnerId.bind(null, value._id)}
-               key = {value._id}
-               name = {value.name}
-               isAdmin = {value.isAdmin}
-               avatar = {value.avatar}
-           />
+           return <Person
+                   key = {value._id}
+                   _id = {value._id}
+                   name = {value.name}
+                   isAdmin = {value.isAdmin}
+                   avatar = {value.avatar}
+               />
+
        })
     }
 

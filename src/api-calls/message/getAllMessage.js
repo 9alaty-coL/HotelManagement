@@ -1,13 +1,15 @@
 import axios from "axios"
 
-const getAllMessage = async (token) => {
+const getAllMessage = async (token, recieverId) => {
     let res = null
     try {
         res = await axios({
             method: 'post',
-            url: 'https://api-hotman.herokuapp.com/mess',
+            // url: 'https://api-hotman.herokuapp.com/api/mess',
+            url: 'http://localhost:8000/api/mess/messages',
             data: {
                 token: token,
+                recieverId: recieverId,
             }
         })
 

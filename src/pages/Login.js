@@ -5,7 +5,7 @@ import "./css/login.css";
 // import { CircularProgress } from "@material-ui/core";
 import { CircularProgress } from "@mui/material";
 import { useMutation } from "react-query";
-import getAccessToken from "../api-calls/getAccessToken";
+import getAccessToken from "../api-calls/message/getAccessToken";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 

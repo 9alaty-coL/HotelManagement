@@ -6,6 +6,7 @@ const AuthContext = createContext({
     isLoggedIn: false,
     _id: '',
     username: '',
+    name: '',
     isAdmin: false,
     login: (token) => {},
     logout: () => {},
@@ -26,12 +27,14 @@ export const AuthContextProvider = props => {
     }
     const _id = decodedToken?.data?._id
     const username = decodedToken?.data?.username
+    const name = decodedToken?.data?.name
     const isAdmin = decodedToken?.data?.role
     const contextValue = {
         token: token,
         _id: _id,
         username: username,
         isAdmin: isAdmin,
+        name: name,
         isLoggedIn: userIsLoggedIn,
         login: loginHandler,
         logout: logoutHandler,

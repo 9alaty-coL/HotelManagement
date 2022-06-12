@@ -1,12 +1,18 @@
 import classes from "./OptionSelect.module.scss";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 const OptionSelect = (props) => {
+  
   const { option, setOption } = props;
   const [choose, setChoose] = useState(false);
   const selectRef = useRef();
+  useEffect(() => {
+    if (props.options !== undefined && props.options.length !== 0){
+      setOption(0)
+    }
+  }, []);
   if (props.options === undefined || props.options.length === 0){
     return <div className={classes.contain}>
       <div className={classes.select} style={{color:"gray"}}>

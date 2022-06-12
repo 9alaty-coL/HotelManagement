@@ -4,14 +4,17 @@ import { useState } from 'react'
 
 import Conversation from '../components/messenger/Conversation'
 import People from '../components/messenger/People'
+import { useParams } from 'react-router-dom'
 
 const Messenger = props => {
-    const [partnerId, setPartnerId] = useState(null)
+    const params = useParams()
+    // const [partnerId, setPartnerId] = useState(null)
+    const partnerId = params.recieverId
     return <div className={classes.main}>
         <NavBar />
         <div className={classes.page}>
             {partnerId && <Conversation partnerId={partnerId}/>}
-            <People setPartnerId={setPartnerId}/>
+            <People/>
         </div>
     </div>
 }

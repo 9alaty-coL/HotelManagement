@@ -9,8 +9,8 @@ const BookRow = (props) => {
             <div>{props.customerName}</div>
             <div>{props.bookDay}</div>
             <div>{props.roomName}</div>
-            <button id={props.bookID}><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
-            <button ><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
+            <button><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
+            <button><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
         </div>
     );
 };

@@ -1,0 +1,22 @@
+.main{
+    display: grid;
+    grid-template-columns: 5vw 18vw 18vw  5vw 5vw;
+
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    width: 58vw;
+    height: auto;
+
+    border: 1px solid #fff;
+
+    border-radius: 15px; 
+
+    gap: 1.3vh;
+    padding: 0.3vw 6vw 0.3vw 4vw;
+    margin: 0.1vh 0vh;
+
+    background-color: #FFF1CB;
+    opacity: 0.9;
+}

@@ -3,10 +3,10 @@ import RoomListPage from "../components/room-list/RoomListPage";
 import NavBar from "../components/navbar/NavBar";
 
 const RoomList = () => {
-    return <>
+    return <div className={classes.main}>
         <NavBar />
         <RoomListPage />
-    </>
+    </div>
 }
 
 export default RoomList

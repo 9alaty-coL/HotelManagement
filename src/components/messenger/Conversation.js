@@ -2,12 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faArrowRight, faArrow} from "@fortawesome/free-solid-svg-icons"
 import classes from './Conversation.module.scss'
 import Message from './Message'
-import {useRef, useEffect, useContext} from 'react'
+import {useRef, useEffect, useContext, useState} from 'react'
 import AuthContext from '../../context/AuthContext'
 import getAllMessage from '../../api-calls/message/getAllMessage'
-import { useQuery } from 'react-query'
+import { useQuery, useMutation, useIsFetching } from 'react-query'
+import {sendMessage} from '../../api-calls/message/sendMessage'
 import { autocompleteClasses, CircularProgress } from "@mui/material";
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 const getOneUser = async (token, userId)=>{
     let res
@@ -28,27 +30,30 @@ const getOneUser = async (token, userId)=>{
 }
 
 const Conversation = props => {
+    const params = useParams()
     const authContext = useContext(AuthContext)
     const formRef = useRef()
     const textareaRef = useRef()
     const messagesRef = useRef()
-    const messagesData = useQuery(['getMessages', props.partnerId],getAllMessage.bind(null, authContext.token, props.partnerId))
-    
+    const messageMutation = useMutation(sendMessage)
+    const messagesData = useQuery(['getMessages', props.partnerId, messageMutation.isSuccess],getAllMessage.bind(null, authContext.token, props.partnerId))
     const {data: reciever, isLoading} = useQuery(['getUser', props.partnerId], getOneUser.bind(null, authContext.token, props.partnerId))
+    const recieverId = params.recieverId
+
     let messages
     if (messagesData.isLoading){
-        messages = <CircularProgress color="primary" size="80px" style={{
-            position: "absolute",
-            left: "45%",
-            top: "40%",
-        }} />
+        // messages = <CircularProgress color="primary" size="80px" style={{
+        //     position: "absolute",
+        //     left: "45%",
+        //     top: "40%",
+        // }} />
     }
     else if (messagesData.isError){
         messages = <span style={{color: "red"}}>Error: {messagesData.error}</span>
     }
-    else{
+    else if (messagesData.isSuccess){
         messages = messagesData.data.map(value => {
-            return <Message ref={messagesRef} key={value._id} message={value.message} send={value.senderId == authContext._id} createdAt={value.createdAt} />
+            return <Message ref={messagesRef} key={value._id} message={value.message} send={value.senderId === authContext._id} createdAt={value.createdAt} />
         })
     }
     // const messages = DUMMY_MESSAGE.map(value => {
@@ -61,11 +66,29 @@ const Conversation = props => {
     }, [messages])
     const submitHandler = e => {
         e.preventDefault()
+        if (textareaRef.current.value === ''){
+            return
+        }
+        messageMutation.mutate({
+            token: authContext.token,
+            senderId: authContext._id,
+            recieverId: recieverId,
+            message: textareaRef.current.value,
+        })
         textareaRef.current.value=''
     }
     const onEnterPress = e => {
-        if (e.keyCode === 13 && e.shiftKey == false){
+        if (e.keyCode === 13 && e.shiftKey === false){
             e.preventDefault()
+            if (textareaRef.current.value === ''){
+                return
+            }
+            messageMutation.mutate({
+                token: authContext.token,
+                senderId: authContext._id,
+                recieverId: recieverId,
+                message: textareaRef.current.value,
+            })
             textareaRef.current.value=''
         }
     }
@@ -76,7 +99,7 @@ const Conversation = props => {
             </div>
             <div className={classes.info}>
                 <h4 className={classes.name}>{!isLoading && reciever?.name}</h4>
-                <span className={classes.role}>{reciever != undefined && (!isLoading && reciever?.role ? 'Admin' : 'Staff')}</span>
+                <span className={classes.role}>{reciever !== undefined && (!isLoading && reciever?.role ? 'Admin' : 'Staff')}</span>
             </div>
             <div className={classes.feature}>
                 <FontAwesomeIcon icon={faPhone} fontSize={40} />
@@ -86,8 +109,8 @@ const Conversation = props => {
             {messages}
         </div>
         <form className={classes.send} onSubmit={submitHandler} ref={formRef}>
-            <div className={classes.textBox}><textarea ref={textareaRef} onKeyDown={onEnterPress} rows={3} placeholder={'your message...'} /></div>
-            <button className={classes.sendBtn} type="submit"><FontAwesomeIcon icon={faArrowRight} /></button>
+            <div className={classes.textBox}><textarea required ref={textareaRef} onKeyDown={onEnterPress} rows={3} placeholder={'your message...'} /></div>
+            <button disabled={messageMutation.isLoading} className={classes.sendBtn} type="submit">{messageMutation.isLoading ? <CircularProgress size='25px' /> :<FontAwesomeIcon icon={faArrowRight} />}</button>
         </form>
     </div>
 }

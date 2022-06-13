@@ -25,7 +25,7 @@ const BookroomModal = props => {
         if (bookRoomMutate.isSuccess){
             props.onBackdropClick()
         }
-    }, [bookRoomMutate.isSuccess])
+    }, [bookRoomMutate.isSuccess, props])
 
     const submitHandler = e => {
         e.preventDefault()
@@ -33,12 +33,8 @@ const BookroomModal = props => {
         // if (!roomIndex){
         //     return;
         // }
-        const roomId = rooms.data[choosedRoom]._id
-        console.log({
-            token: authContext.token,
-            roomId: roomId,
-            customerId: userRef.current.value,
-        })
+        const roomId = roomsFiltered[choosedRoom]._id
+
         bookRoomMutate.mutate({
             token: authContext.token,
             roomId: roomId,
@@ -47,6 +43,7 @@ const BookroomModal = props => {
     }
 
     let roomOptions
+    var roomsFiltered
     if (rooms.isLoading){
         roomOptions = <CircularProgress size={"25px"} />
     }
@@ -54,10 +51,10 @@ const BookroomModal = props => {
         roomOptions = <span style={{color: 'red'}}>{rooms.error}</span>
     }
     else if (rooms.isSuccess){
-        const roomsFiltered = rooms.data.filter(r => {
+        roomsFiltered = rooms.data.filter(r => {
             return r.status === 'Phòng trống'
         })
-        roomOptions =  <OptionSelect options={roomsFiltered} option={choosedRoom} setOption={setChoosedRoom}/>
+        roomOptions =  <OptionSelect message="Không còn phòng phù hợp yêu cầu" options={roomsFiltered} option={choosedRoom} setOption={setChoosedRoom}/>
     }
 
     return <Modal onBackdropClick={props.onBackdropClick} onCloseClick={props.onBackdropClick}>
@@ -67,7 +64,7 @@ const BookroomModal = props => {
                 <div className={classes.info}>
                     <div className={classes.customerInfo}>
                         <span>Thông tin khách hàng</span>
-                        <CustomerInfoRow ref={userRef} icon={faUser} placeholder="Nguyễn Văn A" />
+                        <CustomerInfoRow required ref={userRef} icon={faUser} placeholder="Nguyễn Văn A" />
                         <CustomerInfoRow icon={faIdCard} placeholder="Nhập CCCD" />
                         <CustomerInfoRow icon={faPhone} placeholder="Nhập SĐT" type={"number"} />
                         <CustomerInfoRow icon={faAddressBook} placeholder="Nhập địa chỉ" />

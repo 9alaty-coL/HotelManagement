@@ -1,0 +1,51 @@
+.main{
+    padding: 20px;
+    .header{
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 2.3rem;
+        color: darkblue;
+        text-align: center;
+        border-bottom: 1px solid darkblue;
+    }
+    .body{
+        display: flex;
+        flex-direction: column;
+        .info{
+            display: flex;
+            .roomInfo{
+                display: flex;
+                flex:1;
+                margin-left: 15px;
+                padding-right: 30px;
+                flex-direction: column;
+                align-items: center;
+                // border-right: 1px solid black;
+                &>span{
+                    font-size: 1.5rem;
+                    margin-top: 15px;
+                }
+                .rooms{
+                    margin-top: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 80%;
+                    &>span{
+                        font-size: 1.5rem;
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+        .btnGroup{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+            .btnSingle {
+                width: 45%;
+            }
+        }
+    }
+}

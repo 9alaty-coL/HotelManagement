@@ -48,7 +48,7 @@ const Conversation = props => {
     console.log(dataMess)
 
     useEffect(() => {
-        setSocket(io('ws://localhost:8900'))
+        setSocket(io('ws://socket-hotman.herokuapp.com/'))
     }, [])
 
     useEffect(()=>{

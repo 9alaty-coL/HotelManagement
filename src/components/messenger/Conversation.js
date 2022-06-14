@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faArrowRight, faArrow} from "@fortawesome/free-solid-svg-icons"
 import classes from './Conversation.module.scss'
 import Message from './Message'
-import {useRef, useEffect, useContext, useState} from 'react'
+import {useRef, useEffect, useContext, useState, useCallback} from 'react'
 import AuthContext from '../../context/AuthContext'
 import getAllMessage from '../../api-calls/message/getAllMessage'
 import { useQuery, useMutation, useIsFetching } from 'react-query'
@@ -10,6 +10,7 @@ import {sendMessage} from '../../api-calls/message/sendMessage'
 import { autocompleteClasses, CircularProgress } from "@mui/material";
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import {io} from 'socket.io-client'
 
 const getOneUser = async (token, userId)=>{
     let res
@@ -36,9 +37,34 @@ const Conversation = props => {
     const textareaRef = useRef()
     const messagesRef = useRef()
     const messageMutation = useMutation(sendMessage)
-    const messagesData = useQuery(['getMessages', props.partnerId, messageMutation.isSuccess],getAllMessage.bind(null, authContext.token, props.partnerId))
+    const [dataMess, setDataMess] = useState([])
+    const messagesData = useQuery(['getMessages', props.partnerId],getAllMessage.bind(null, authContext.token, props.partnerId),{
+        refetchOnWindowFocus: false
+    })
     const {data: reciever, isLoading} = useQuery(['getUser', props.partnerId], getOneUser.bind(null, authContext.token, props.partnerId))
     const recieverId = params.recieverId
+    const [socket, setSocket] = useState(null)
+
+    console.log(dataMess)
+
+    useEffect(() => {
+        setSocket(io('ws://localhost:8900'))
+    }, [])
+
+    useEffect(()=>{
+        socket?.on("RecieveMessage", mess => {
+            // console.log(dataMess)
+            setDataMess(prev => [...prev, mess])
+        })
+        socket?.on("GetUsers", users => console.log(users))
+        socket?.emit("AddUser", authContext._id)
+    }, [socket])
+
+    useEffect(() => {
+        if (messagesData.data){
+            setDataMess(messagesData.data)
+        }
+    }, [messagesData.data])
 
     let messages
     if (messagesData.isLoading){
@@ -51,8 +77,8 @@ const Conversation = props => {
     else if (messagesData.isError){
         messages = <span style={{color: "red"}}>Error: {messagesData.error}</span>
     }
-    else if (messagesData.isSuccess){
-        messages = messagesData.data.map(value => {
+    else if (messagesData.isSuccess && dataMess){
+        messages = dataMess.map(value => {
             return <Message ref={messagesRef} key={value._id} message={value.message} send={value.senderId === authContext._id} createdAt={value.createdAt} />
         })
     }
@@ -64,10 +90,18 @@ const Conversation = props => {
             messagesRef?.current?.scrollIntoView({behavior: 'smooth'})
         }
     }, [messages])
+
     const submitHandler = e => {
         e.preventDefault()
         if (textareaRef.current.value === ''){
             return
+        }
+        const newMess = {
+            token: authContext.token,
+            senderId: authContext._id,
+            recieverId: recieverId,
+            message: textareaRef.current.value,
+            createdAt: new Date()
         }
         messageMutation.mutate({
             token: authContext.token,
@@ -75,6 +109,8 @@ const Conversation = props => {
             recieverId: recieverId,
             message: textareaRef.current.value,
         })
+        setDataMess(prev => [...prev, newMess])
+        socket?.emit("SendMessage", newMess)
         textareaRef.current.value=''
     }
     const onEnterPress = e => {
@@ -83,12 +119,21 @@ const Conversation = props => {
             if (textareaRef.current.value === ''){
                 return
             }
+            const newMess = {
+                token: authContext.token,
+                senderId: authContext._id,
+                recieverId: recieverId,
+                message: textareaRef.current.value,
+                createdAt: new Date()
+            }
             messageMutation.mutate({
                 token: authContext.token,
                 senderId: authContext._id,
                 recieverId: recieverId,
                 message: textareaRef.current.value,
             })
+            setDataMess(prev => [...prev, newMess])
+            socket?.emit("SendMessage", newMess)
             textareaRef.current.value=''
         }
     }

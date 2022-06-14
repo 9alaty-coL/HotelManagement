@@ -12,7 +12,7 @@ const OptionSelect = (props) => {
     if (props.options !== undefined && props.options.length !== 0){
       setOption(0)
     }
-  }, [setOption, props.options]);
+  }, [setOption, props.options.length]);
   if (props.options === undefined || props.options.length === 0){
     return <div className={classes.contain}>
       <div className={classes.select} style={{color:"red", textAlign:"center"}}>

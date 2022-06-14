@@ -11,7 +11,7 @@ const CustomerInfoRow = forwardRef((props, ref) => {
         className={classes.input}
         placeholder={props.placeholder}
         type={props.type}
-        // required = {props.required}
+        required = {props.required}
         max={props.max}
         min={props.min}
         defaultValue={props.value}

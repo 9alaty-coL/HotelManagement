@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const getAllMessage = async (token, recieverId) => {
+    console.log('fetched')
     let res = null
     try {
         res = await axios({

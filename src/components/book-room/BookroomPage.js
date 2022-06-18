@@ -12,9 +12,13 @@ import {getBookedRoom} from "../../api-calls/book-room/get-booked-room"
 
 const BookroomPage = () =>{
     const authContext = useContext(AuthContext)
-    const bookedRoom = useQuery('getBookedRoom', getBookedRoom.bind(null, authContext.token));
-
+    let bookedRoom = useQuery('getBookedRoom', getBookedRoom.bind(null, authContext.token));
     let listBookedRoom
+    
+    let reloadPage = () => {
+        window.location.reload()
+    }
+    
     if (bookedRoom.isLoading){
         listBookedRoom = <CircularProgress size={"25px"} />
     }
@@ -22,7 +26,6 @@ const BookroomPage = () =>{
         listBookedRoom = <span style={{color: 'red'}}>{}</span>
     }
     else if (bookedRoom.isSuccess){
-        console.log("Okay" + bookedRoom)
         listBookedRoom = 
         (
             <div className={classes.main}>

@@ -2,7 +2,8 @@ import classes from "./BookRow.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 
-import EditBookedInfoModal from "./modal/EditBookedInfoModal"
+import EditBookedRoomModal from "./modal/EditBookedInfoModal"
+import DeleteBookedRoomModal from "./modal/DeleteBookedInfoModal"
 import { useState } from "react"
 
 const BookRow = (props) => {
@@ -15,14 +16,18 @@ const BookRow = (props) => {
             <div>{props.bookDay}</div>
             <div>{props.roomName}</div>
             <button onClick={() => setEditRow(true)}><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
-            {editRow && <EditBookedInfoModal 
+            {editRow && <EditBookedRoomModal 
                 onBackdropClick={()=>setEditRow(prev=>!prev)}
                 roomName = {props.roomName}
                 bookDay = {props.bookDay}
                 customerName = {props.customerName}
                 />}
-            <button><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
-            {deleteRow && <EditBookedInfoModal onBackdropClick={()=>setDeleteRow(prev=>!prev)}/>}
+            <button onClick={() => setDeleteRow(true)}><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
+            {deleteRow && <DeleteBookedRoomModal 
+                onBackdropClick={()=>setDeleteRow(prev=>!prev)}
+                roomName = {props.roomName}
+                customerName = {props.customerName}
+                />}
         </div>
     );
 };

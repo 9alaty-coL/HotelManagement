@@ -21,12 +21,14 @@ const BookRow = (props) => {
                 roomName = {props.roomName}
                 bookDay = {props.bookDay}
                 customerName = {props.customerName}
+                refetch = {props.refetch}
                 />}
             <button onClick={() => setDeleteRow(true)}><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
             {deleteRow && <DeleteBookedRoomModal 
                 onBackdropClick={()=>setDeleteRow(prev=>!prev)}
                 roomName = {props.roomName}
                 customerName = {props.customerName}
+                refetch = {props.refetch}
                 />}
         </div>
     );

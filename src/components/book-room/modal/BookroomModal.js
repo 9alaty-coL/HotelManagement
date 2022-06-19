@@ -24,8 +24,9 @@ const BookroomModal = props => {
     useEffect(()=>{
         if (bookRoomMutate.isSuccess){
             props.onBackdropClick()
+            props.refetch()
         }
-    }, [bookRoomMutate.isSuccess, props])
+    }, [bookRoomMutate.isSuccess])
 
     const submitHandler = e => {
         e.preventDefault()

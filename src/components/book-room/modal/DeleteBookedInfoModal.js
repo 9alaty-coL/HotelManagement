@@ -15,6 +15,7 @@ const DeleteBookedRoomModal = props => {
     useEffect(()=>{
         if (deleteBookedRoomMutate.isSuccess){
             props.onBackdropClick()
+            props.refetch()
         }
     }, [deleteBookedRoomMutate.isSuccess])
 

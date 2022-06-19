@@ -21,6 +21,7 @@ const EditBookedRoomModal = props => {
     useEffect(()=>{
         if (changeBookedRoomMutate.isSuccess){
             props.onBackdropClick()
+            props.refetch()
         }
     }, [changeBookedRoomMutate.isSuccess])
 

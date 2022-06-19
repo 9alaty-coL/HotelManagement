@@ -15,9 +15,6 @@ const BookroomPage = () =>{
     let bookedRoom = useQuery('getBookedRoom', getBookedRoom.bind(null, authContext.token));
     let listBookedRoom
     
-    let reloadPage = () => {
-        window.location.reload()
-    }
     
     if (bookedRoom.isLoading){
         listBookedRoom = <CircularProgress size={"25px"} />
@@ -29,7 +26,7 @@ const BookroomPage = () =>{
         listBookedRoom = 
         (
             <div className={classes.main}>
-            <Navbar/>
+            <Navbar refetch={bookedRoom.refetch}/>
             <HeadRow/>
                 {bookedRoom.data.map((data, index) => (
                 <BookRow 
@@ -37,7 +34,8 @@ const BookroomPage = () =>{
                     number={index + 1} 
                     customerName={data.customer} 
                     bookDay={data.time.substring(0, 10)}
-                    roomName={data.name}>
+                    roomName={data.name}
+                    refetch={bookedRoom.refetch}>
                 </BookRow>))
                 } 
             </div>    

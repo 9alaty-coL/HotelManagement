@@ -6,8 +6,10 @@ const BookRow = (props) => {
     return (
         <div className={classes.main}>
             <div>{props.number}</div>
-            <div>{props.roomType}</div>
-            <button id={props.bookID}><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
+            <div>{props.name}</div>
+            <div>{props.description}</div>
+            <div>{props.price}</div>
+            <button id={props.serviceID}><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
             <button ><FontAwesomeIcon icon={Icons.faDeleteLeft} /></button>
         </div>
     );

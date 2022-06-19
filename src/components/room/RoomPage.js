@@ -6,7 +6,7 @@ import RoomBox from "./RoomBox";
 
 const RoomPage = () => {
     return <div className={classes.main}>
-        <RoomPageNavbar />
+        {/* <RoomPageNavbar /> */}
         <RoomType />
         <RoomBox />
     </div>

@@ -3,28 +3,44 @@ import BookRow from "./BookRow.js"
 import HeadRow from "./HeadRow.js"
 import Navbar from "./Navbar.js"
 
-const datas = [
-    {_id: 123, index: 1, roomType: "Phòng đơn", createdAt: "01/05/2022"},
-    {_id: 345, index: 2, roomType: "Phòng đôi", createdAt: "02/05/2022"},
-    {_id: 678, index: 3, roomType: "Villa", createdAt: "03/05/2022"},
-
-]
+import { useContext, useEffect, useState } from "react"
+import { CircularProgress } from "@mui/material"
+import { useQuery } from "react-query"
+import AuthContext from "../../context/AuthContext"
+import {getAllRoomTypes} from "../../api-calls/roomType/getAllRoomTypes"    
     
 const RoomList = () =>{
-    return ( 
-        <div className={classes.main}>
-            <Navbar/>
-            <HeadRow/>
-            {datas.map(data => (
-                <BookRow 
-                    key={data._id} 
-                    number={data.index} 
-                    roomType={data.roomType} 
-                    roomID={data._id}>
-                </BookRow>))
-            }
-        </div>     
-    ) 
+    const authContext = useContext(AuthContext)
+    
+    let roomTypes = useQuery('getRoomTypes',getAllRoomTypes.bind(null, authContext.token))
+    let listRoomTypes
+   
+    if (roomTypes.isLoading){
+        listRoomTypes = <CircularProgress size={"25px"} />
+    }
+    else if (roomTypes.isError){
+        listRoomTypes = <span style={{color: 'red'}}>{}</span>
+    }
+    else if (roomTypes.isSuccess){
+        
+        listRoomTypes = 
+        (
+            <div className={classes.main}>
+                <Navbar refetch={roomTypes.refetch}/>
+                <HeadRow/> 
+                {roomTypes.data.map((data, index) => (
+                    <BookRow 
+                        key={data.type} 
+                        number={index} 
+                        type={data.type} 
+                        refetch={roomTypes.refetch}>
+                    </BookRow>))
+                }
+            </div>    
+        )
+    }
+
+    return listRoomTypes 
 }
 
 export default RoomList

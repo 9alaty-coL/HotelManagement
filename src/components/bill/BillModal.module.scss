@@ -1,0 +1,32 @@
+.body{
+    min-width: 600px;
+    padding: 30px 30px;
+    .header{
+        text-align: center;
+        font-size: 2rem;
+        color: darkblue;
+        margin-bottom: 30px;
+    }
+    .detail{
+        display: flex;
+        .title{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+            font-size: 1.2rem;
+            &>*{
+                margin: 5px 0px;
+            }
+        }
+        .info{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            font-size: 1.2rem;
+            &>*{
+                margin: 5px 0px;
+            }
+        }
+    }
+}

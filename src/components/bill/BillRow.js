@@ -9,7 +9,7 @@ const BookRow = (props) => {
             <div>{props.billId}</div>
             <div>{props.customerName}</div>
             <div>{props.date}</div>
-            <button ><FontAwesomeIcon icon={Icons.faEye} /></button>
+            <button onClick={()=>props.setModal(props.billId)}><FontAwesomeIcon icon={Icons.faEye} /></button>
         </div>
     );
 };

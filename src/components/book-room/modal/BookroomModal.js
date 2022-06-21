@@ -14,31 +14,28 @@ const BookroomModal = props => {
     const authContext = useContext(AuthContext)
     const [choosedRoom, setChoosedRoom] = useState(-1)
     const userRef = useRef()
-    // const idCardRef = useRef()
-    // const phoneRef = useRef()
-    // const addressBookRef = useRef()
-    // const earthRef = useRef()
+    const dateRef = useRef()
+
     const bookRoomMutate = useMutation(bookRoom)
     const rooms = useQuery('getRooms',getAllRoom.bind(null, authContext.token))
 
     useEffect(()=>{
         if (bookRoomMutate.isSuccess){
             props.onBackdropClick()
+            props.refetch()
         }
-    }, [bookRoomMutate.isSuccess, props])
+    }, [bookRoomMutate.isSuccess])
 
     const submitHandler = e => {
         e.preventDefault()
-        // const roomIndex = rooms.data.find(v => v.name === choosedRoom)
-        // if (!roomIndex){
-        //     return;
-        // }
+
         const roomId = roomsFiltered[choosedRoom]._id
 
         bookRoomMutate.mutate({
             token: authContext.token,
             roomId: roomId,
             customerName: userRef.current.value,
+            time: dateRef.current.value
         })
     }
 
@@ -72,7 +69,7 @@ const BookroomModal = props => {
                     </div>
                     <div className={classes.roomInfo}>
                         <span>Phòng yêu cầu</span>
-                        <CustomerInfoRow icon={faCalendar} placeholder="Ngày ở" type={"date"} />
+                        <CustomerInfoRow ref={dateRef} icon={faCalendar} placeholder="Ngày ở" type={"date"} />
                         <CustomerInfoRow icon={faClock} placeholder="Số ngày ở" type={"number"} />
                         <CustomerInfoRow icon={faSortNumericDesc} placeholder="Số người" type={"number"}/>
                         <div className={classes.rooms}>

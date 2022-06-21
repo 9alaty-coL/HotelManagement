@@ -1,17 +1,15 @@
 import axios from 'axios'
 import {API_URL} from '../api-url'
 
-export const bookRoom =  async(data) => {
+export const deleteBookedRoom =  async(data) => {
     let res = null
     try {
         res = await axios({
-            method: 'post',
-            url: API_URL + 'room/bookRoom',
+            method: 'delete',
+            url: API_URL + 'room/deleteCustomerInfo',
             data: {
                 token: data.token,
-                roomId: data.roomId,
-                customerName: data.customerName,
-                time: data.time
+                name: data.name
             }
         })
         return res.data

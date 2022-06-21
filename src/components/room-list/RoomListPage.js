@@ -20,7 +20,6 @@ const RoomList = () =>{
                     key={data._id} 
                     number={data.index} 
                     roomType={data.roomType} 
-                    createdAt={data.createdAt}
                     roomID={data._id}>
                 </BookRow>))
             }

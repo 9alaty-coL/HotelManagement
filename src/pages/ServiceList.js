@@ -3,10 +3,10 @@ import NavBar from "../components/navbar/NavBar"
 import ServiceListPage from "../components/service-list/ServiceListPage"
 
 const ServiceList = () => {
-    return <>
+    return <div className={classes.main}>
         <NavBar />
         <ServiceListPage />
-    </>
+    </div>
 }
 
 export default ServiceList

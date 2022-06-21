@@ -1,7 +1,6 @@
 import classes from "./RoomModal.module.scss";
 import CustomerRow from "./CustomerRow";
 import { faUser, faClock, faCalendar, faUsers } from "@fortawesome/free-solid-svg-icons";
-import OptionSelect from "../../UI/OptionSelect";
 import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../../context/AuthContext";
 import Modal from "../../UI/Modal";
@@ -10,38 +9,16 @@ import { getRoomById } from "../../../api-calls/room/getRoomById";
 import { getAllService } from "../../../api-calls/room/getServices";
 import {CircularProgress, Button, FormControl, Select, MenuItem, FormGroup, FormControlLabel, Checkbox} from "@mui/material";
 import { updateRoom } from "../../../api-calls/room/updateRoom";
-
-const STATE_OPTIONS = [
-  {
-    name: "Trống",
-  },
-  {
-    name: "Đã đặt",
-  },
-  {
-    name: "Đang sử dụng",
-  },
-];
-
-const CLEAN_OPTIONS = [
-    {
-        name: "Đã dọn",
-    },
-    {
-        name: "Đang dọn",
-    },
-    {
-        name: "Chưa dọn",
-    },
-]
+import { Link } from "react-router-dom";
 
 const RoomModal = (props) => {
   const authContext = useContext(AuthContext)
   const roomMutate = useMutation(updateRoom)
   const roomDetail = useQuery(['getRoomById', props.id, roomMutate.isSuccess], getRoomById.bind(null, props.id, authContext.token), {refetchOnWindowFocus: false, refetchOnMount: true})
   const services = useQuery(['getServices', props.id], getAllService.bind(null, authContext.token))
-  const [roomState, setRoomState] = useState('');
+  const [roomState, setRoomState] = useState('Đã dọn dẹp');
   const [serviceListData, setServiceListData] = useState([])
+
   useEffect(() => {
     if (roomDetail.isSuccess){
       setServiceListData(roomDetail.data?.serviceList ?? [])
@@ -49,11 +26,12 @@ const RoomModal = (props) => {
   }, [roomDetail.isSuccess, roomDetail.data]);
 
   useEffect(() => {
-    setRoomState(roomDetail.data.actualState)
+    if(roomDetail?.data?.actualState){
+      setRoomState(roomDetail?.data?.actualState)
+    }
   }, [roomDetail?.data?.actualState])
 
   let serviceList
-  // console.log(services.data)
   if (services.isLoading){
     serviceList = <CircularProgress size={'25px'} />
   }
@@ -87,10 +65,6 @@ const RoomModal = (props) => {
       props.onBackdropClick()
     }
   }, [roomMutate.isSuccess])
-
-  // useEffect(() => {
-
-  // })
 
   const onClickHandler = () => {
     roomMutate.mutate({
@@ -152,7 +126,7 @@ const RoomModal = (props) => {
       </div>
     </div>
     <div className={classes.btnGroup}>
-      <Button disabled={roomMutate.isLoading} variant="contained" color="success" onClick={onClickHandler}>{roomDetail.data.status==='Phòng đã đặt' ? 'Nhận phòng' : 'Cập nhật'}</Button>
+      <Button disabled={roomMutate.isLoading} variant="contained" color="success" onClick={onClickHandler}>{roomDetail.data.status==='Phòng đã đặt' ? 'Nhận phòng' : <Link style={{color:'white', textDecoration:'none'}} to={'/book-room'}>Đặt phòng</Link>}</Button>
       <Button disabled={roomMutate.isLoading} variant="contained" onClick={props.onBackdropClick} style={{backgroundColor: "#888", marginLeft: "20px"}}>Hủy</Button>
     </div>
   </div>

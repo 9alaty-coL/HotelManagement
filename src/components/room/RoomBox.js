@@ -3,120 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {Row, Col } from 'reactstrap';
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import RoomModal from './modal/RoomModal'
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../../context/AuthContext"
+import { useQuery } from "react-query";
+import { getAllRoom } from "../../api-calls/room/getAllRooms";
+import { CircularProgress } from "@mui/material";
 
-const rooms = [
-    {
-        id: 101,
-        type: "Phòng đơn",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 102,
-        type: "Phòng đơn",
-        status: "Phòng trống", 
-        actualState: "Chưa dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 103,
-        type: "Phòng đơn",
-        status: "Phòng đã đặt", 
-        customer:"Nguyễn Hoàng Nam",
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 104,
-        type: "Phòng đơn",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 105,
-        type: "Phòng đơn",
-        status: "Đã nhận phòng", 
-        customer:"Nguyễn Hoàng Nam",
-        actualState: "Chưa dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 201,
-        type: "Phòng đôi",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 600 000đ"
-    }, 
-    {
-        id: 202,
-        type: "Phòng đôi",
-        status: "Phòng đã đặt", 
-        customer:"Nguyễn Hoàng Nam",
-        actualState: "Đã dọn dẹp",
-        price: "1 600 000đ"
-    }, 
-    {
-        id: 203,
-        type: "Phòng đôi",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 204,
-        type: "Phòng đôi",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 800 000đ"
-    }, 
-    {
-        id: 205,
-        type: "Phòng đôi",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 800 000đ"
-    },
-    {
-        id: 301,
-        type: "Villa",
-        status: "Đang sửa chữa", 
-        actualState: "Chưa dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 302,
-        type: "Villa",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 303,
-        type: "Villa",
-        status: "Phòng đã đặt", 
-        customer:"Nguyễn Hoàng Nam",
-        actualState: "Chưa dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 304,
-        type: "Villa",
-        status: "Phòng đã đặt", 
-        customer:"Trần Tấn Lộc",
-        actualState: "Chưa dọn dẹp",
-        price: "1 000 000đ"
-    }, 
-    {
-        id: 304,
-        type: "Villa",
-        status: "Phòng trống", 
-        actualState: "Đã dọn dẹp",
-        price: "1 000 000đ"
-    }
-]
 
 const types = [
     {
@@ -133,14 +25,21 @@ const types = [
     }
 ]
 
-
-
 const RoomBox = () => {
+    const authContext = useContext(AuthContext)
+    const roomsData = useQuery('getAllRoom', getAllRoom.bind(null, authContext.token))
     const [showModal, setShowModal] = useState(false)
-    return <div className={classes.main}>
-    {showModal && <RoomModal onBackdropClick={()=>setShowModal(prev=>!prev)}/>}
-        {types.map((type) =>{
-            const roomsOfType = rooms.filter((room) => {
+
+    let rooms
+    if (roomsData.isLoading){
+        rooms = <CircularProgress size={'25px'} />
+    }
+    else if (roomsData.isError){
+        rooms = <span style={{color: 'red'}}>{roomsData.error}</span>
+    }
+    else if (roomsData.isSuccess){
+        rooms = types.map((type) =>{
+            const roomsOfType = roomsData.data.filter((room) => {
                 return room.type === type.data;
             });
             return (
@@ -159,29 +58,29 @@ const RoomBox = () => {
                                 Middle = `${classes.Middle} ${classes.Booked}`;
                                 Content = room.customer;
                             }
-                            else if (room.status === "Đang sửa chữa") {
+                            else if (room.status === "Phòng sửa chữa") {
                                 Top = `${classes.Top} ${classes.Damaged}`;
                                 Middle = `${classes.Middle} ${classes.Damaged}`;
                                 Content = (<span><FontAwesomeIcon icon={Icons.faScrewdriverWrench}/></span>);
                             }
-                            else if (room.status === "Đã nhận phòng") {
+                            else if (room.status === "Phòng đã nhận") {
                                 Top = `${classes.Top} ${classes.checkedIn}`;
                                 Middle = `${classes.Middle} ${classes.checkedIn}`;
                                 Content = room.customer;
                             }
-
+    
                             if (room.actualState === "Đã dọn dẹp") {
                                 State = (<span><FontAwesomeIcon icon={Icons.faCheck} />  Đã dọn dẹp</span>)
                             } 
                             else {
                                 State = (<span><FontAwesomeIcon icon={Icons.faX} />  Chưa dọn dẹp</span>)
                             }
-
+    
                             return (
-                                <Col className={classes.BoxElement} xs={3} onClick={()=>setShowModal(prev=>!prev)}>
+                                <Col className={classes.BoxElement} xs={3} onClick={()=>setShowModal(room._id)} key={room._id}>
                                     <div className={Top}>
                                         <div className={classes.leftElement}>
-                                            {room.id}
+                                            {room.name}
                                         </div>
                                         <div className={classes.rightElement}>
                                             {room.status}
@@ -204,15 +103,16 @@ const RoomBox = () => {
                                 </Col>
                             )
                         })}
-
+    
                     </Row>
                 </div>
             )
-        })}
-
-        </div>
-
-
+        })
+    }
+    return <div className={classes.main}>
+        {showModal && <RoomModal id={showModal} onBackdropClick={()=>setShowModal('')}/>}
+        {rooms}
+    </div>
             
 }
 

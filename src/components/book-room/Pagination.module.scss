@@ -1,0 +1,33 @@
+.main{
+    display: flex;
+
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    gap: 1vh;
+    margin-top: 3vh;
+
+    width: 25%;
+
+    &>button{
+        padding: 10px;
+        float: right;
+        border: none;
+
+        display: block;
+        color: black;
+
+        background-color: aliceblue;
+        cursor: pointer;
+        text-align: center;
+        
+        text-decoration: none;
+        font-size: 20px;
+
+        width:15%;
+        &:hover{
+            background-color: rgb(221, 221, 255);
+        }
+    }
+}

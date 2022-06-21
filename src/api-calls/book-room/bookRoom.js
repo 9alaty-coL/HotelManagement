@@ -11,6 +11,7 @@ export const bookRoom =  async(data) => {
                 token: data.token,
                 roomId: data.roomId,
                 customerName: data.customerName,
+                time: data.time
             }
         })
         return res.data

@@ -30,7 +30,7 @@ const EditBookedRoomModal = props => {
 
         changeBookedRoomMutate.mutate({
             token: authContext.token,
-            oldName: props.type,
+            oldName: props.name,
             name: serviceRef.current.value,
             description: descRef.current.value,
             price: priceRef.current.value,

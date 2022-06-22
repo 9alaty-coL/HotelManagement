@@ -11,7 +11,7 @@ export const getBills =  async(token) => {
         })
         return res.data
     } catch (err) {
-        throw(new Error(err.response.data.message))
+        throw(alert(new Error(err.response.data.message)))
     }
 }
 
@@ -26,6 +26,6 @@ export const getBillById = async(token, billId) => {
         })
         return res.data
     } catch (err) {
-        throw(new Error(err.response.data.message))
+        throw(alert(new Error(err.response.data.message)))
     }
 }

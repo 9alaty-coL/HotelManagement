@@ -13,6 +13,6 @@ export const getAllRoom = async(token) => {
         })
         return res.data
     } catch (err) {
-        throw(new Error(err.response.data.message))
+        throw(alert(new Error(err.response.data.message)))
     }
 }

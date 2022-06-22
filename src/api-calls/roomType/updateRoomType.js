@@ -15,6 +15,6 @@ export const updateRoomType =  async(data) => {
         })
         return res.data
     } catch (err) {
-        throw(new Error(err.response.data.message))
+        throw(alert(new Error(err.response.data.message)))
     }
 }

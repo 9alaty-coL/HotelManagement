@@ -8,7 +8,7 @@ const BookRow = (props) => {
             <div>{props.number}</div>
             <div>{props.billId}</div>
             <div>{props.customerName}</div>
-            <div>{props.date}</div>
+            <div>{(new Date(props.date)).toLocaleString()}</div>
             <button onClick={()=>props.setModal(props.billId)}><FontAwesomeIcon icon={Icons.faEye} /></button>
         </div>
     );

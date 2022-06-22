@@ -34,13 +34,12 @@ const BillModal = props => {
                 <div className={classes.info}>
                     <span>{billDetail.data[0].customerName}</span>
                     <span>{billDetail.data[0].roomName}</span>
-                    <span>{(new Date(billDetail.data[0].from)).toLocaleString()}</span>
-                    <span>{(new Date(billDetail.data[0].to)).toLocaleString()}</span>
+                    <span>{(new Date(billDetail.data[0].from.toLocaleString())).toLocaleString()}</span>
+                    <span>{(new Date(billDetail.data[0].to.toLocaleString())).toLocaleString()}</span>
                     <span>{billDetail.data[0].createdBy}</span>
                     <span>{billDetail.data[0].total}</span>
                 </div>
             </div>
-
         </div>
     }
     return <Modal onBackdropClick={props.onBackdropClick} onCloseClick={props.onBackdropClick}>

@@ -1,7 +1,4 @@
 import classes from "./RoomType.module.scss";
-import {Label, FormGroup, Input, Button } 
-    from 'reactstrap';
-import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Status = [
    {
@@ -24,8 +21,7 @@ const Status = [
       id: 4, 
       data: "Đang sửa chữa"
    }
-];
-
+]
 const Types = [
    {
       id: 0, 
@@ -59,13 +55,7 @@ const actualState = [
    },
 ]
 
-
-const RoomType = () => {
-
-   const [statusSelected, setStatusSelected] = useState(Status[0].id);
-   const [typeSelected, setTypeSelected] = useState(Types[0].id);
-   const [stateSelected, setStateSelected] = useState(actualState[0].id);
-  
+const RoomType = props => {  
    return (<div className={classes.main}>
          <div className={classes.RoomType_element}>
             <h5>Loại phòng</h5>
@@ -73,8 +63,8 @@ const RoomType = () => {
                return (<div key= {type.id}>
                         <input 
                            type="radio" 
-                           checked={type.id === typeSelected}
-                           onChange={() => setTypeSelected(type.id)}
+                           checked={type.data === props.typeSelected}
+                           onChange={() => props.setTypeSelected(type.data)}
                         />
                            {type.data}
                      </div>)
@@ -87,8 +77,8 @@ const RoomType = () => {
                return (<div key= {status.id}>
                         <input 
                            type="radio" 
-                           checked={status.id === statusSelected}
-                           onChange={() => setStatusSelected(status.id)}
+                           checked={status.data === props.statusSelected}
+                           onChange={() => props.setStatusSelected(status.data)}
                         />
                            {status.data}
                      </div>)
@@ -101,8 +91,8 @@ const RoomType = () => {
                return (<div key= {state.id}>
                         <input 
                            type="radio" 
-                           checked={state.id === stateSelected}
-                           onChange={() => setStateSelected(state.id)}
+                           checked={state.data === props.stateSelected}
+                           onChange={() => props.setStateSelected(state.data)}
                         />
                            {state.data}
                      </div>)

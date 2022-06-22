@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {Row, Col } from 'reactstrap';
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import RoomModal from './modal/RoomModal'
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/AuthContext"
 import { useQuery } from "react-query";
-import { getAllRoom } from "../../api-calls/room/getAllRooms";
+import { getSelectedRooms } from "../../api-calls/room/getSelectedRoom";
 import { CircularProgress } from "@mui/material";
 
 
@@ -25,10 +25,15 @@ const types = [
     }
 ]
 
-const RoomBox = () => {
+const RoomBox = props => {
     const authContext = useContext(AuthContext)
-    const roomsData = useQuery('getAllRoom', getAllRoom.bind(null, authContext.token))
+    const roomsData = useQuery('getSelectedRooms', 
+        getSelectedRooms.bind(null, { token: authContext.token, status: props.statusSelected, type: props.typeSelected, state: props.stateSelected}))
     const [showModal, setShowModal] = useState(false)
+
+    useEffect(() => {
+        roomsData.refetch()
+    }, [props.statusSelected, props.typeSelected, props.stateSelected])
 
     let rooms
     if (roomsData.isLoading){
@@ -109,6 +114,7 @@ const RoomBox = () => {
             )
         })
     }
+
     return <div className={classes.main}>
         {showModal && <RoomModal id={showModal} onBackdropClick={()=>setShowModal('')}/>}
         {rooms}

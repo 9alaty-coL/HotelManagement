@@ -27,12 +27,12 @@ const OPTION_LIST = [
   {
     name: "Danh mục phòng",
     path: "/room-list",
-    link: "https://mofficesoft.vn/wp-content/uploads/2020/04/menu-calendar-icon-3.png",
+    link: "https://cdn-icons-png.flaticon.com/512/93/93998.png",
   },
   {
     name: "Danh mục dịch vụ",
     path: "/service-list",
-    link: "https://mofficesoft.vn/wp-content/uploads/2020/04/menu-calendar-icon-3.png",
+    link: "https://d338t8kmirgyke.cloudfront.net/icons/icon_pngs/000/008/561/original/service.png",
   },
   {
     name: "Nhắn tin",

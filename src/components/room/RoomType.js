@@ -15,11 +15,11 @@ const Status = [
    },
    {
       id: 3, 
-      data: "Đã nhận phòng"
+      data: "Phòng đã nhận"
    },
    {
       id: 4, 
-      data: "Đang sửa chữa"
+      data: "Phòng sửa chữa"
    }
 ]
 const Types = [

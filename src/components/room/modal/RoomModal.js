@@ -62,18 +62,23 @@ const RoomModal = (props) => {
 
   useEffect(() => {
     if (roomMutate.isSuccess){
+      props.setReFetchRoom(prev => !prev)
       props.onBackdropClick()
     }
   }, [roomMutate.isSuccess])
 
   const onClickHandler = () => {
+    const newR = {
+      services: serviceListData,
+      id: props.id,
+      actualState: roomState,
+    }
+    if (roomDetail.data.status==='Phòng đã đặt'){
+      newR.status = 'Phòng đã nhận'
+    }
     roomMutate.mutate({
       token: authContext.token,
-      newRoom:{
-        services: serviceListData,
-        id: props.id,
-        actualState: roomState,
-      }
+      newRoom:newR,
     })
   }
 

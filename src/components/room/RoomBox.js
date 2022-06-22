@@ -27,7 +27,8 @@ const types = [
 
 const RoomBox = props => {
     const authContext = useContext(AuthContext)
-    const roomsData = useQuery('getSelectedRooms', 
+    const [reFetchRoom, setReFetchRoom] = useState(false)
+    const roomsData = useQuery(['getSelectedRooms', reFetchRoom], 
         getSelectedRooms.bind(null, { token: authContext.token, status: props.statusSelected, type: props.typeSelected, state: props.stateSelected}))
     const [showModal, setShowModal] = useState(false)
 
@@ -116,7 +117,7 @@ const RoomBox = props => {
     }
 
     return <div className={classes.main}>
-        {showModal && <RoomModal id={showModal} onBackdropClick={()=>setShowModal('')}/>}
+        {showModal && <RoomModal id={showModal} setReFetchRoom={setReFetchRoom} onBackdropClick={()=>setShowModal('')}/>}
         {rooms}
     </div>
             

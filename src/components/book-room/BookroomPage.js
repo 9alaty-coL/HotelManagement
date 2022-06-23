@@ -68,7 +68,7 @@ const BookroomPage = () =>{
                     key={data.name} 
                     number={index + (page - 1) * 10 + 1} 
                     customerName={data.customer} 
-                    bookDay={data.time.substring(0, 10)}
+                    bookDay={data?.time?.substring(0, 10)}
                     roomName={data.name}
                     refetch={bookedRoom.refetch}>
                 </BookRow>))

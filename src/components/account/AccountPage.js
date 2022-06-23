@@ -1,4 +1,4 @@
-import classes from "./ServiceListPage.module.scss"
+import classes from "./AccountPage.module.scss"
 import BookRow from "./BookRow.js"
 import HeadRow from "./HeadRow.js"
 import Navbar from "./Navbar.js"
@@ -7,35 +7,37 @@ import { useContext, useEffect, useState } from "react"
 import { CircularProgress } from "@mui/material"
 import { useQuery } from "react-query"
 import AuthContext from "../../context/AuthContext"
-import {getAllService} from "../../api-calls/service/getAllService"
+import {getAllAccount} from "../../api-calls/account/getAllAccount"
+
     
-const ServiceListPage = () =>{
+const AccountPage = () =>{
 
     const authContext = useContext(AuthContext)
     
-    let services = useQuery('getServices',getAllService.bind(null, authContext.token))
-    let listServices
+    let services = useQuery('getAccounts',getAllAccount.bind(null, authContext.token))
+    let listAccounts
    
     if (services.isLoading){
-        listServices = <CircularProgress size={"25px"} />
+        listAccounts = <CircularProgress size={"25px"} />
     }
     else if (services.isError){
-        listServices = <span style={{color: 'red'}}>{}</span>
+        listAccounts = <span style={{color: 'red'}}>{}</span>
     }
     else if (services.isSuccess){
         
-        listServices = 
+        listAccounts = 
         (
             <div className={classes.main}>
                 <Navbar refetch={services.refetch}/>
                 <HeadRow/> 
                 {services.data.map((data, index) => (
                     <BookRow 
-                        key={data.name} 
+                        key={data.username} 
                         number={index} 
                         name={data.name} 
-                        description={data.description}
-                        price={data.price}
+                        username={data.username}
+                        password={data.password}
+                        isAdmin = {data.isAdmin}
                         refetch={services.refetch}>
                     </BookRow>))
                 }
@@ -43,8 +45,8 @@ const ServiceListPage = () =>{
         )
     }
 
-    return listServices 
+    return listAccounts 
 }
 
 
-export default ServiceListPage
+export default AccountPage

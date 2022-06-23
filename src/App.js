@@ -7,6 +7,7 @@ import Bill from "./pages/Bill";
 import Room from "./pages/Room"
 import RoomList from "./pages/RoomList";
 import ServiceList from "./pages/ServiceList";
+import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Messenger from "./pages/Messenger";
 import Logout from "./pages/Logout";
@@ -26,6 +27,7 @@ function App() {
       {AuthContext.isLoggedIn && <Route path="/bills" element={<Bill />} />}
       {AuthContext.isLoggedIn && <Route path="/room-list" element={<RoomList />} />}
       {AuthContext.isLoggedIn && <Route path="/service-list" element={<ServiceList />} />}
+      {AuthContext.isLoggedIn && <Route path="/account" element={<Account />} />}
       {AuthContext.isLoggedIn && <Route path="/messenger" element={<Messenger />} >
         <Route path=":recieverId" element={<Messenger />} />
       </Route>}

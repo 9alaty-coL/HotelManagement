@@ -35,6 +35,11 @@ const OPTION_LIST = [
     link: "https://d338t8kmirgyke.cloudfront.net/icons/icon_pngs/000/008/561/original/service.png",
   },
   {
+    name: "Quản lí tài khoản",
+    path: "/account",
+    link: "https://icon-library.com/images/white-search-icon-transparent-background/white-search-icon-transparent-background-18.jpg",
+  },
+  {
     name: "Nhắn tin",
     path: "/messenger",
     link: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Font_Awesome_5_brands_facebook-messenger.svg/1792px-Font_Awesome_5_brands_facebook-messenger.svg.png",

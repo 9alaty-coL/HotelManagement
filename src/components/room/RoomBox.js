@@ -109,7 +109,6 @@ const RoomBox = props => {
                                 </Col>
                             )
                         })}
-    
                     </Row>
                 </div>
             )
@@ -120,7 +119,6 @@ const RoomBox = props => {
         {showModal && <RoomModal id={showModal} setReFetchRoom={setReFetchRoom} onBackdropClick={()=>setShowModal('')}/>}
         {rooms}
     </div>
-            
 }
 
 export default RoomBox

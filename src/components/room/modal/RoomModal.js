@@ -9,11 +9,13 @@ import { getRoomById } from "../../../api-calls/room/getRoomById";
 import { getAllService } from "../../../api-calls/room/getServices";
 import {CircularProgress, Button, FormControl, Select, MenuItem, FormGroup, FormControlLabel, Checkbox} from "@mui/material";
 import { updateRoom } from "../../../api-calls/room/updateRoom";
+import { addBill } from "../../../api-calls/room/addBill";
 import { Link } from "react-router-dom";
 
 const RoomModal = (props) => {
   const authContext = useContext(AuthContext)
   const roomMutate = useMutation(updateRoom)
+  const billMutate = useMutation(addBill)
   const roomDetail = useQuery(['getRoomById', props.id, roomMutate.isSuccess], getRoomById.bind(null, props.id, authContext.token), {refetchOnWindowFocus: false, refetchOnMount: true})
   const services = useQuery(['getServices', props.id], getAllService.bind(null, authContext.token))
   const [roomState, setRoomState] = useState('Đã dọn dẹp');
@@ -76,6 +78,21 @@ const RoomModal = (props) => {
     if (roomDetail.data.status==='Phòng đã đặt'){
       newR.status = 'Phòng đã nhận'
     }
+    else if (roomDetail.data.status === 'Phòng đã nhận'){
+      newR.status = 'Phòng trống' 
+      const newBill = {
+        customerName: roomDetail.data.customer,
+        roomName: roomDetail.data.name,
+        from: roomDetail.data.time,
+        createdBy: authContext.name,
+        to: (new Date()).toLocaleDateString(),
+        total: roomDetail.data.price,
+    }
+      billMutate.mutate({
+        token: authContext.token,
+        newBill: newBill,
+      })
+    }
     roomMutate.mutate({
       token: authContext.token,
       newRoom:newR,
@@ -131,7 +148,7 @@ const RoomModal = (props) => {
       </div>
     </div>
     <div className={classes.btnGroup}>
-      <Button disabled={roomMutate.isLoading} variant="contained" color="success" onClick={onClickHandler}>{roomDetail.data.status==='Phòng đã đặt' ? 'Nhận phòng' : <Link style={{color:'white', textDecoration:'none'}} to={'/book-room'}>Đặt phòng</Link>}</Button>
+      <Button disabled={roomMutate.isLoading} variant="contained" color="success" onClick={onClickHandler}>{roomDetail.data.status==='Phòng đã đặt' ? 'Nhận phòng' : (roomDetail.data.status === 'Phòng đã nhận' ? 'Thanh toán' :<Link style={{color:'white', textDecoration:'none'}} to={'/book-room'}>Đặt phòng</Link>)}</Button>
       <Button disabled={roomMutate.isLoading} variant="contained" onClick={props.onBackdropClick} style={{backgroundColor: "#888", marginLeft: "20px"}}>Hủy</Button>
     </div>
   </div>

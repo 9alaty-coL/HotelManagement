@@ -14,7 +14,7 @@ const BookRow = (props) => {
         <div className={classes.main}>
             <div>{props.number}</div>
             <div>{props.username}</div>
-            <div className={classes.hashPw}>{props.password}</div>
+            <div className={classes.hashPw}>{"****************************************"}</div>
             <div>{props.name}</div>
             <div>{role}</div>
             <button onClick={() => setEditRow(true)}><FontAwesomeIcon icon={Icons.faPenToSquare} /></button>
